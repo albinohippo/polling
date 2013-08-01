@@ -26,10 +26,10 @@
 
 <div>
 	<%= form_for(@poll) do |f| %>
-		<%= f.submit 'Save Changes' %>
+		<div class="form-actions">
+    <%= f.submit 'Save Changes', :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                polls_path, :class => 'btn' %>
+  </div>
 	<% end %>
 </div>
-
-<%= link_to 'Show', @poll %> |
-<%= link_to 'Back', polls_path %>
-
