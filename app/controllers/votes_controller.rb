@@ -2,6 +2,12 @@ class VotesController < ApplicationController
 	def new
 		@poll = Poll.find(params[:poll])
 		@vote = Vote.new(:ip_address => request.remote_ip, :item_id => 24)
+
+		@poll.items_count
+		if @poll.errors.any?
+			flash[:error] = "Sorry, this is an invalid poll. Please make sure the poll has between 2 and 5 items."
+			redirect_to edit_poll_path(@poll)
+		end
 	end
 
 	def create

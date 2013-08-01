@@ -4,6 +4,7 @@ class Poll < ActiveRecord::Base
   attr_accessible :name, :question
   accepts_nested_attributes_for :items
   validate :items_count, :on => :update
+  validates :question, :presence => true
 
   def items_count
   	errors.add(:items, "must be between 2 and 5.") if (self.items.count <= 1 || self.items.count >= 6)
@@ -11,5 +12,9 @@ class Poll < ActiveRecord::Base
 
   def has_ip?(given_ip)
   	self.votes.find_by_ip_address(given_ip)
+  end
+
+  def has_votes?
+  	self.votes.any?
   end
 end

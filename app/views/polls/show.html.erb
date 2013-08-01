@@ -2,7 +2,7 @@
   <h1><%=@poll.name %> - Results</h1>
 </div>
 <h3><%= @poll.question %></h3>
-<table>
+<table class="table table-hover">
 	<tr>
 		<th># of Votes</th>
 		<th>Answer</th>
@@ -17,8 +17,6 @@
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               polls_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_poll_path(@poll), :class => 'btn' %>
   <%= link_to 'Delete Poll',
               poll_path(@poll),
               :method => 'delete',

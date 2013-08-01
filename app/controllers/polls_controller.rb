@@ -14,10 +14,10 @@ class PollsController < ApplicationController
   # GET /polls/1.json
   def show
     @poll = Poll.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @poll }
+    
+    if !@poll.has_ip?(request.remote_ip)
+      flash[:error] = "You must vote before you can see the results"
+      redirect_to polls_path
     end
   end
 
@@ -35,6 +35,7 @@ class PollsController < ApplicationController
   # GET /polls/1/edit
   def edit
     @poll = Poll.find(params[:id])
+    redirect_to polls_path if @poll.has_votes?
   end
 
   # POST /polls
@@ -60,7 +61,7 @@ class PollsController < ApplicationController
 
     respond_to do |format|
       if @poll.update_attributes(params[:poll])
-        format.html { redirect_to @poll, notice: 'Poll was successfully updated.' }
+        format.html { redirect_to polls_path, notice: 'Poll was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

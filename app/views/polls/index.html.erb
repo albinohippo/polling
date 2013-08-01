@@ -20,9 +20,10 @@
         <td><%= poll.question %></td>
         <td><%=l poll.created_at %></td>
         <td>
-          <%= link_to 'Vote', new_vote_path(:poll => poll), :class => 'btn btn-mini btn-info' %>
+          <%= link_to 'Vote', new_vote_path(:poll => poll), :class => 'btn btn-mini btn-info' unless poll.has_ip?(request.remote_ip) %>
+          <%= link_to 'See Results', poll_path(poll), :class => 'btn btn-inverse btn-mini' if poll.has_ip?(request.remote_ip) %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_poll_path(poll), :class => 'btn btn-mini' %>
+                      edit_poll_path(poll), :class => 'btn btn-mini' unless poll.has_votes? %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       poll_path(poll),
                       :method => :delete,

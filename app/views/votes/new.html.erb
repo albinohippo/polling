@@ -9,5 +9,11 @@
     <%= f.label :item_id, i.content %>
   <% end %>
   <%= f.hidden_field :ip_address %>
-  <%= f.submit 'Vote' %>
+  
+  <div class="form-actions">
+    <%= f.submit 'Vote', :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                polls_path, :class => 'btn' %>
+  </div>
 <% end %>
+
