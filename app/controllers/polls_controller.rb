@@ -44,7 +44,7 @@ class PollsController < ApplicationController
 
     respond_to do |format|
       if @poll.save
-        format.html { redirect_to @poll, notice: 'Poll was successfully created.' }
+        format.html { redirect_to edit_poll_path(@poll), notice: 'You must set your poll answers.' }
         format.json { render json: @poll, status: :created, location: @poll }
       else
         format.html { render action: "new" }

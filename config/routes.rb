@@ -1,6 +1,7 @@
 Polling::Application.routes.draw do
   root to: 'polls#index'
   resources :polls
+  resources :items
 
 
   # The priority is based upon order of creation:

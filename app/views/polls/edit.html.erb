@@ -1,6 +1,35 @@
-<h1>Editing poll</h1>
+<% if @poll.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@poll.errors.count, "error") %> prohibited this poll from being saved:</h2>
 
-<%= render 'form' %>
+    <ul>
+    <% @poll.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h2>Name: <%= @poll.name %></h2>
+<h3>Question: <%= @poll.question %></h3>
+
+<ul id="items">
+</ul>
+
+<form id="addition">
+  <input id="content" name="item[content]" type="text">
+  <input id="poll_id" name="item[poll_id]" type="hidden" value="<%= params[:id] %>">
+  <input type="submit" value="Add Item">
+</form>
+
+<p id="error"></p>
+
+<div>
+	<%= form_for(@poll) do |f| %>
+		<%= f.submit 'Save Changes' %>
+	<% end %>
+</div>
 
 <%= link_to 'Show', @poll %> |
 <%= link_to 'Back', polls_path %>
+
