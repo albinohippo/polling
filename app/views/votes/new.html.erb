@@ -1,0 +1,13 @@
+<div class="page-header">
+  <h1><%=@poll.name %></h1>
+</div>
+<h3><%= @poll.question %></h3>
+
+<%= form_for(@vote) do |f| %>
+  <% @poll.items.each do |i| %>
+    <%= f.radio_button :item_id, i.id %>
+    <%= f.label :item_id, i.content %>
+  <% end %>
+  <%= f.hidden_field :ip_address %>
+  <%= f.submit 'Vote' %>
+<% end %>
