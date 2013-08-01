@@ -5,20 +5,18 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:question) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:created_on)%></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @polls.each do |poll| %>
       <tr>
-        <td><%= link_to poll.id, poll_path(poll) %></td>
         <td><%= poll.name %></td>
         <td><%= poll.question %></td>
-        <td><%=l poll.created_at %></td>
+        <td><%= poll.created_at.strftime('%B %d, %Y') if poll.created_at %></td>
         <td>
           <%= link_to 'Vote', new_vote_path(:poll => poll), :class => 'btn btn-mini btn-info' unless poll.has_ip?(request.remote_ip) %>
           <%= link_to 'See Results', poll_path(poll), :class => 'btn btn-inverse btn-mini' if poll.has_ip?(request.remote_ip) %>
